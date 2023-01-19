@@ -11,7 +11,7 @@ persons = Table(
     Column('id', Integer, primary_key=True),
     Column('first_name', String(255)),
     Column('last_name',String(255)),
-    Column('age',int(50))
+    Column('age',Integer)
 )
 
 meta.create_all(engine)
