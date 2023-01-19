@@ -5,6 +5,10 @@ from fastapi import status
 from fastapi import Body , Query , Path, Form
 from typing import Optional
 
+from config.db import conn
+from models.person import persons
+from schemas.person import Person
+
 person = APIRouter()
 
 @person.get(
@@ -21,7 +25,8 @@ def home():
     status_code = status.HTTP_201_CREATED
     )
 def create_person(person: Person = Body(...)):
-    return person
+    new_person = {'first_name':person.first_name, 'last_name':person.last_name, 'age':person.age}
+    result = conn.execute(persons.insert().values(new_person))
 
 # Validations: query parameters
 @person.get(
