@@ -10,8 +10,7 @@ persons = Table(
     meta,
     Column('id', Integer, primary_key=True),
     Column('first_name', String(255)),
-    Column('last_name',String(255)),
-    Column('age',Integer)
+    Column('last_name',String(255))
 )
 
 meta.create_all(engine)

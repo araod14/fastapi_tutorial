@@ -1,6 +1,6 @@
 #path
 from fastapi import APIRouter
-from schemas.person import Person, PersonOut, Location, LoginOut
+from schemas.person import Person, PersonOut
 from fastapi import status
 from fastapi import Body , Query , Path, Form
 from typing import Optional
@@ -25,9 +25,11 @@ def home():
     status_code = status.HTTP_201_CREATED
     )
 def create_person(person: Person = Body(...)):
-    new_person = {'first_name':person.first_name, 'last_name':person.last_name, 'age':person.age}
+    new_person = {'first_name':person.first_name, 'last_name':person.last_name}
     result = conn.execute(persons.insert().values(new_person))
+    return conn.execute(persons.select().where(persons.c.id==result.inserted_primary_key['id'])).first()
 
+"""
 # Validations: query parameters
 @person.get(
     path = "/person/detail",
@@ -87,3 +89,5 @@ def update_person(
     )
 def login():
     pass
+
+"""
