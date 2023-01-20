@@ -30,7 +30,7 @@ class PersonBase(BaseModel):
         min_length=0,
         max_length=50
     )
-
+    age: str
 #    hair_color: Optional[HairColor] = Field(default = None)
 #    is_married: Optional[bool] = Field(default = None)
 

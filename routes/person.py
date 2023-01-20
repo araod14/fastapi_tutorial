@@ -25,7 +25,7 @@ def home():
     status_code = status.HTTP_201_CREATED
     )
 def create_person(person: Person = Body(...)):
-    new_person = {'first_name':person.first_name, 'last_name':person.last_name}
+    new_person = {'first_name':person.first_name, 'last_name':person.last_name, 'age':person.age}
     result = conn.execute(persons.insert().values(new_person))
     return conn.execute(persons.select().where(persons.c.id==result.inserted_primary_key['id'])).first()
 
