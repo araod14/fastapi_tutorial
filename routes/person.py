@@ -36,27 +36,34 @@ def create_person(person: Person = Body(...)):
     status_code = status.HTTP_200_OK
     )
 def show_person(
-    id: int = Query(
+    name: Optional[str] = Query(
+        None,
+        min_length=1, 
+        max_length=50,
+        title = "Person name ",
+        description = "This is the person name. It's between 1 and 50 charapter"
+    ),
+    age: str = Query(
         ...,
-        title = "Person id",
-        description = "This is the person id. It's required"
+        title = "Person age",
+        description = "This is the person age. It's required"
     )
     ):
-    return conn.execute(persons.select().where(persons.c.id == id)).first()
-"""
+    return conn.execute(persons.select().where(persons.c.age == age)).first()
+
 @person.get(
     path = "/person/detail/{person_id}",
     status_code = status.HTTP_200_OK
     )
 def show_person(
-    person_id:int = Path(
+    id:int = Query(
         ..., 
         gt=0,
         title = "Person ID ",
         description = "This is the person ID. it's required and its grather than 0")
     ):
-    return {person_id: "it exists!"}
-
+    return conn.execute(persons.select().where(persons.c.id == id)).first()
+"""
 @person.put(
     path = "/person/{person_id}",
     status_code = status.HTTP_202_ACCEPTED
