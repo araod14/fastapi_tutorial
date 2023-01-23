@@ -1,18 +1,17 @@
 #class
-
 from enum import Enum
 from typing import Optional
-
 #Pydantic
 from pydantic import BaseModel
 from pydantic import Field
 
-"""class HairColor(Enum):
-    white = "White"
-    gray = "Gray"
-    brown = "Brown"
-    blonde = "Blonde"
-
+class HairColor(Enum):
+    white= "White"
+    gray= "Gray"
+    brown= "Brown"
+    blonde= "Blonde"
+    black= "Black"
+"""
 class Location(BaseModel):
     city: str
     state: str
@@ -31,7 +30,7 @@ class PersonBase(BaseModel):
         max_length=50
     )
     age: str
-#    hair_color: Optional[HairColor] = Field(default = None)
+    hair_color: Optional[HairColor] = Field(default = None)
 #    is_married: Optional[bool] = Field(default = None)
 
 class PersonOut(PersonBase):
