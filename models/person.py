@@ -13,7 +13,7 @@ persons = Table(
     Column('id', Integer, primary_key=True),
     Column('first_name', String(255)),
     Column('last_name',String(255)),
-    Column('age',String(255)),
+    Column('age', Integer),
     Column('hair_color',Enum(HairColor))
 )
 
