@@ -52,7 +52,7 @@ def show_person(
     return conn.execute(persons.select().where(persons.c.age == age)).first()
 
 @person.get(
-    path = "/person/detail/{person_id}",
+    path = "/person/detail",
     status_code = status.HTTP_200_OK
     )
 def show_person(
@@ -63,31 +63,18 @@ def show_person(
         description = "This is the person ID. it's required and its grather than 0")
     ):
     return conn.execute(persons.select().where(persons.c.id == id)).first()
-"""
-@person.put(
-    path = "/person/{person_id}",
-    status_code = status.HTTP_202_ACCEPTED
-    )
-def update_person(
-    person_id: int = Path(
-        ...,
-        title = "Person ID",
-        description = "This is the person ID",
-        gt = 0
-    ),
-    person: Person = Body(...),
-    location: Location = Body(...)
-    ):
-    results = person.dict()
-    results.update(location.dict())
-    return results
 
-@person.post(
-    path = "/login",
-    response_model = LoginOut,
+@person.delete(
+    path = "/person/detail",
     status_code = status.HTTP_200_OK
     )
-def login():
-    pass
+def delete_person(
+    id:int = Query(
+        ..., 
+        gt=0,
+        title = "Person ID ",
+        description = "This is the person ID. it's required and its grather than 0")
+    ):
+    conn.execute(persons.delete().where(persons.c.id == id))
+    return 'deleted'
 
-"""
