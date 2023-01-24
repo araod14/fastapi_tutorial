@@ -78,3 +78,14 @@ def delete_person(
     conn.execute(persons.delete().where(persons.c.id == id))
     return 'deleted'
 
+@person.put(
+    path = "/person/detail",
+    status_code = status.HTTP_201_CREATED
+    )
+def update_person(
+    id: str, 
+    person: Person
+    ):
+    conn.execute(persons.update().values(first_name = person.first_name, 
+                last_name= person.last_name, age=person.age ).where(persons.c.id == id))
+    return conn.execute(persons.select().where(persons.c.id == id)).first()
